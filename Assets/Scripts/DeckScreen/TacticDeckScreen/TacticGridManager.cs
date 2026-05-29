@@ -15,14 +15,68 @@ namespace DeckScreen.TacticDeckScreen
         [SerializeField] private AvailableTacticDeckManager availableTacticDeckManager;
         [SerializeField] private Button menuButton;
         [SerializeField] private Button tacticButton;
+        [SerializeField] private GameObject allTacticCardsCyberObject;
+        [SerializeField] private GameObject allTacticCardsBioObject;
+        [SerializeField] private GameObject tacticCardPrefab;
+        [SerializeField] private int playerNum;
+        
         private bool _isRefreshing;
         private TacticItem _item;
+        private TacticCard[] _allTacticCards;
 
+        private void Awake()
+        {
+            menuButton.onClick.AddListener(UpdateDecks);
+            tacticButton.onClick.AddListener(UpdateDecks);
+        }
+
+        public void DeckForming()
+        {
+            if (!isPlayerTacticDeck)
+            {
+                switch (IntersceneData.Instance.PlayerNum)
+                {
+                    case 1:
+                        switch (IntersceneData.Instance.Player1.Tech)
+                        {
+                            case "Bio":
+                                _allTacticCards = allTacticCardsBioObject.GetComponents<TacticCard>();
+                                allTacticCardsBioObject.SetActive(false);
+                                break;
+                            case "Cyber":
+                                _allTacticCards = allTacticCardsCyberObject.GetComponents<TacticCard>();
+                                allTacticCardsCyberObject.SetActive(false);
+                                break;
+                        }
+
+                        break;
+                    case 2:
+                        switch (IntersceneData.Instance.Player2.Tech)
+                        {
+                            case "Bio":
+                                _allTacticCards = allTacticCardsBioObject.GetComponents<TacticCard>();
+                                allTacticCardsBioObject.SetActive(false);
+                                break;
+                            case "Cyber":
+                                _allTacticCards = allTacticCardsCyberObject.GetComponents<TacticCard>();
+                                allTacticCardsCyberObject.SetActive(false);
+                                break;
+                        }
+
+                        break;
+                }
+                
+                foreach (var cardData in _allTacticCards)
+                {
+                    var cardObj = Instantiate(tacticCardPrefab, transform);
+                    cardObj.AddComponent(cardData.GetType());
+                }
+            }
+        }
+        
         private void Start()
         {
             if (isPlayerTacticDeck) MovePlayerCards();
-            menuButton.onClick.AddListener(UpdateDecks);
-            tacticButton.onClick.AddListener(UpdateDecks);
         }
         
         private void MovePlayerCards()
@@ -31,7 +85,7 @@ namespace DeckScreen.TacticDeckScreen
             var checkedCards = new List<TacticCard>();
             foreach (var card in cards)
             {
-                foreach (var cardInDeck in IntersceneData.Instance.PlayerTacticDeck)
+                foreach (var cardInDeck in IntersceneData.Instance.Player1TacticDeck)
                 {
                     if (cardInDeck.Name != card.Name || checkedCards.Contains(card)) continue;
                     card.transform.SetParent(transform);
@@ -44,6 +98,7 @@ namespace DeckScreen.TacticDeckScreen
         
         public void OnDrop(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             _item = eventData.pointerDrag.GetComponent<TacticItem>();
             
             if (!eventData.pointerDrag.CompareTag("Item")) return;
@@ -57,10 +112,10 @@ namespace DeckScreen.TacticDeckScreen
         {
             if (isPlayerTacticDeck)
             {
-                IntersceneData.Instance.ClearTacticDeck();
+                IntersceneData.Instance.ClearTacticDeck(playerNum);
                 foreach (var card in GetComponentsInChildren<TacticCard>().ToList())
                 {
-                    IntersceneData.Instance.AddTacticCardToDeck(card);
+                    IntersceneData.Instance.AddTacticCardToDeck(card, playerNum);
                 }
             }
 
@@ -71,6 +126,14 @@ namespace DeckScreen.TacticDeckScreen
                 {
                     availableTacticDeckManager.AddTacticCardToDeck(card);
                 }
+            }
+        }
+        
+        public void ClearGrid()
+        {
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
             }
         }
     }

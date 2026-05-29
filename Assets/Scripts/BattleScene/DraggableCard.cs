@@ -20,6 +20,7 @@ namespace BattleScene
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             _originalParent = transform.parent;
             transform.SetParent(transform.root);
             _canvasGroup.blocksRaycasts = false;
@@ -27,11 +28,13 @@ namespace BattleScene
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             _rectTransform.anchoredPosition += eventData.delta / _mainCanvas.scaleFactor;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             _canvasGroup.blocksRaycasts = true;
         
             if (transform.parent == transform.root)

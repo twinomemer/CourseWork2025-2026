@@ -8,8 +8,9 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Неудачный эксперимент";
+            Tech = "Bio";
             Cost = 1;
-            Damage = 0;
+            Damage = 1;
             MaxHealth = 7;
             IsSpecial = true;
             Spell = "Уклонение";
@@ -25,7 +26,7 @@ namespace Cards.Biopunk
         public override void GetDamage(int damage)
         {
             var n = Random.Range(1, 101);
-            if (n <= _missChance) return;
+            if (n <= _missChance) damage = 0;
             base.GetDamage(damage);
         }
     }

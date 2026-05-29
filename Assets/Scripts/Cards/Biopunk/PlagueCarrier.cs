@@ -5,6 +5,7 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Разносчик заразы";
+            Tech = "Bio";
             Cost = 1;
             Damage = 3;
             MaxHealth = 1;

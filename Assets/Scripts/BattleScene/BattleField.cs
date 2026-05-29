@@ -8,7 +8,6 @@ namespace BattleScene
     {
         [SerializeField] private Transform player1Sectors;
         [SerializeField] private Transform player2Sectors;
-        [SerializeField] private GameObject sectorPrefab;
     
         private FieldSector[,] _sectors = new FieldSector[2, 6];
 

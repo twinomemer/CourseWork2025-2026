@@ -4,17 +4,18 @@ namespace Cards.Biopunk
 {
     public class Overseer : Card
     {
-        private bool _isUpgraded = false, _isBuffed;
+        private bool _isUpgraded = false;
 
         protected override void Awake()
         {
             Name = "Наблюдатель";
+            Tech = "Bio";
             Cost = 2;
             Damage = 3;
             MaxHealth = 10;
             IsSpecial = true;
             Spell = "Как посмотреть";
-            CardDescription = "(пас) Увеличивает урон союзного героя на 10%";
+            CardDescription = "(пас) Увеличивает урон союзного героя на 15%";
             CheckUpgrades();
         }
         
@@ -27,22 +28,15 @@ namespace Cards.Biopunk
 
         public override void Initialize(int sector)
         {
-            _isBuffed = false;
             base.Initialize(sector);
-        }
-
-        public override void HandleUpdate()
-        {
-            base.HandleUpdate();
-            if (!_isUpgraded || _isBuffed) return;
-            Owner.DamageAmplifier += 0.1f;
+            if (!_isUpgraded) return;
+            Owner.DamageAmplifier += (decimal)0.15;
             Owner.RecalculateDamage();
-            _isBuffed = true;
         }
-
+        
         protected override IEnumerator Die()
         {
-            Owner.DamageAmplifier -= 0.1f;
+            Owner.DamageAmplifier -= (decimal)0.15;
             Owner.RecalculateDamage();
             yield return base.Die();
         }

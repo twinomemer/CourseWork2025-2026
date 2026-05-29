@@ -11,6 +11,7 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Паразит";
+            Tech = "Bio";
             Cost = 4;
             Damage = 0;
             MaxHealth = 30;
@@ -37,7 +38,6 @@ namespace Cards.Biopunk
             if (!_isUpgraded) return;
             var enemyHero = FindObjectsByType<Hero>((FindObjectsSortMode)FindObjectsInactive.Exclude).Where(h => h.Side != Side).ToList();
             enemyHero[0].GetDamage(5);
-            enemyHero[1].GetDamage(5);
         }
 
         protected override IEnumerator Die()

@@ -5,6 +5,7 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Ядовитое растение";
+            Tech = "Bio";
             Cost = 1;
             Damage = 3;
             MaxHealth = 1;

@@ -8,7 +8,8 @@ namespace Cards.Cyberpunk.TacticCards
         private void Awake()
         {
             Name = "Точный выпад";
-            Damage = 1;
+            Style = "DefaultTactic";
+            Damage = 0;
             CardDescription = "Наносит урон выбранной цели";
         }
 

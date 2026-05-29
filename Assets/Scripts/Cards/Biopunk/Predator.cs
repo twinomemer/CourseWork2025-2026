@@ -5,12 +5,14 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Хищник";
+            Tech = "Bio";
             Cost = 3;
             Damage = 10;
             MaxHealth = 20;
             IsCardWithActiveSpell = false;
             IsSpecial = true;
             Spell = "Перекачка";
+            SpellType = "Untargeted";
             CardDescription = "(акт) Снижает своё максимальное здоровье на 10, но увеличивает урон на 10";
             CheckUpgrades();
         }
@@ -22,6 +24,7 @@ namespace Cards.Biopunk
 
         public override void ActiveSpell(Card target = null)
         {
+            if (Health - 10 <= 0) turnsWounded += 1;
             RescaleHealth(MaxHealth - 10);
             Damage += 10;
             SpellUsageCount += 1;

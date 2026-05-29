@@ -7,7 +7,6 @@ namespace Cards.Cyberpunk.TacticCards
 {
     public class FireAtWill : TacticCard
     {
-        
         private void Awake()
         {
             Name = "Огонь на поражение";
@@ -18,7 +17,7 @@ namespace Cards.Cyberpunk.TacticCards
         public override void Attack(Card target)
         {
             var battleField = target.GetComponentInParent<BattleField>();
-            var allTargets = battleField.GetComponentsInChildren<Card>().Where(card => card.Side == target.Side && card.IsVulnerable);
+            var allTargets = battleField.GetComponentsInChildren<Card>().Where(card => card.Side == target.Side && card.IsVulnerable && card.IsActive).ToArray();
             var splittedDamage = (int) Math.Truncate((decimal)(Owner.AmplifiedDamage / allTargets.Count()));
             if (splittedDamage < 1) splittedDamage = 1;
             foreach (var card in allTargets)

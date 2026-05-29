@@ -5,13 +5,15 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Двигающиеся грибы";
+            Tech = "Bio";
             Cost = 1;
             Damage = 0;
             MaxHealth = 7;
             IsCardWithActiveSpell = false;
             IsSpecial = true;
             Spell = "Бурные споры";
-            CardDescription = "(акт) Наносят 2 урона всем вражеским картам в выбранном доступном секторе";
+            SpellType = "TargetEnemy";
+            CardDescription = "(акт) Наносят 2 урона доступной для атаки вражеской карте и её соседям по сектору";
             CheckUpgrades();
         }
         

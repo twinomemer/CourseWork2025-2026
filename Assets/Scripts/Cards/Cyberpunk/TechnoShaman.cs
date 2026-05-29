@@ -11,12 +11,14 @@ namespace Cards.Cyberpunk
         protected override void Awake()
         {
             Name = "Техношаман";
+            Tech = "Cyber";
             Cost = 2;
             Damage = 0;
-            MaxHealth = 10;
+            MaxHealth = 15;
             IsCardWithActiveSpell = true;
             IsSpecial = true;
             Spell = "Сомкнуть ряды";
+            SpellType = "Untargeted";
             CardDescription = "(акт) Увеличивает здоровье соседей по сектору на 5";
             CheckUpgrades();
         }

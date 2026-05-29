@@ -6,13 +6,15 @@ namespace Cards.Cyberpunk
     {
         protected override void Awake()
         {
-            Name = "Кибер крыса";
+            Name = "Кибер-крыса";
+            Tech = "Cyber";
             Cost = 2;
             Damage = 0;
             MaxHealth = 5;
             IsCardWithActiveSpell = false;
             IsSpecial = true;
             Spell = "Копия";
+            SpellType = "TargetNeighbour";
             CardDescription = "(акт) Перенимает показатель урона у выбранного соседа по сектору";
             CheckUpgrades();
         }
@@ -23,7 +25,7 @@ namespace Cards.Cyberpunk
 
         public override void ActiveSpell(Card target)
         {
-            if (target.Sector != Sector || target.Side != Side) return;
+            if (target.Sector != Sector || target.Side != Side || target.isWounded) return;
             Damage = target.Damage;
             RecalculateDamage();
             Owner.Damage += AmplifiedDamage;

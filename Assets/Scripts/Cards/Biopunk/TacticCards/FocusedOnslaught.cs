@@ -7,7 +7,8 @@ namespace Cards.Biopunk.TacticCards
         private void Awake()
         {
             Name = "Натиск";
-            Damage = 1;
+            Style = "DefaultTactic";
+            Damage = 0;
             CardDescription = "Наносит урон выбранной цели";
         }
 

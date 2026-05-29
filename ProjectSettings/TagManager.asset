@@ -9,6 +9,11 @@ TagManager:
   - AvailableDeck
   - AdditionalCanvas
   - CurrentEnergy
+  - BattleSector
+  - Player1UI
+  - Player2UI
+  - DSSource
+  - StatusUI
   layers:
   - Default
   - TransparentFX

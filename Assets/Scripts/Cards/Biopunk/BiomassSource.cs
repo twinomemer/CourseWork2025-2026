@@ -7,6 +7,7 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Источник биомассы";
+            Tech = "Bio";
             Cost = 4;
             Damage = 0;
             MaxHealth = 30;
@@ -23,7 +24,7 @@ namespace Cards.Biopunk
 
         public override void HandleUpdate()
         {
-            if (_isUpgraded)
+            if (_isUpgraded && !isWounded)
             {
                 var cards = FindObjectsOfType<Card>();
                 foreach (var card in cards)

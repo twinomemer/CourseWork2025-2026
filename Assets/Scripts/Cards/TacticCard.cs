@@ -4,12 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Cards
 {
     public abstract class TacticCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public string Name { get; protected set; }
+        public string Style { get; protected set; }
         public int Damage { get; protected set; }
         public int Side { get; protected set; }
         public bool IsActive { get; protected set; }
@@ -21,6 +23,8 @@ namespace Cards
         protected TMP_Text DamageText;
         protected TMP_Text SpellDescription;
         protected TMP_Text CardStats;
+        protected Image CardImage;
+        protected Image CardImageInfo;
         protected GameObject InfoScreen;
         protected bool IsRightButtonHeld;
 
@@ -39,10 +43,23 @@ namespace Cards
             if (NameText != null) NameText.text = Name;
             if (DamageText != null) DamageText.text = Damage.ToString();
             if (InfoScreen != null)InfoScreen.SetActive(false);
+            
+            if (transform.Find("TacticCardImage"))
+            {
+                CardImage = transform.Find("TacticCardImage").GetComponent<Image>();
+                CardImageInfo = transform.Find("InfoScreen/TacticCardImageInfo").GetComponent<Image>();
+                
+                Sprite image = null;
+                image = Resources.Load<Sprite>($"Pictures/TacticImages/{Style}");
+            
+                CardImage.sprite = image;
+                CardImageInfo.sprite = image;
+            }
         }
         
         public void Initialize()
         {
+            transform.localScale = new Vector3(0.85f, 0.9f, 0.9f);
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             IsActive = true;
             Side = Owner.Side;
@@ -83,7 +100,7 @@ namespace Cards
             }
         }
         
-        private IEnumerator ShowWindowAfterDelay(float delay = 0.5f)
+        private IEnumerator ShowWindowAfterDelay(float delay = 0.1f)
         {
             yield return new WaitForSeconds(delay);
         

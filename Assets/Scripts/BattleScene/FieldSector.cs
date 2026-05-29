@@ -18,14 +18,15 @@ namespace BattleScene
 
         public void OnDrop(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             var card = eventData.pointerDrag?.GetComponent<Card>();
             var tacticCard = eventData.pointerDrag?.GetComponent<TacticCard>();
-            if (card != null && _playerIndex == 1 && _sectorIndex != 4)
+            if (card != null && ((_playerIndex == 1 && _sectorIndex != 4 && card.Owner.Side == 1) || (_playerIndex == 2 && _sectorIndex != 1 && card.Owner.Side == 2)))
             {
                 TryAddCard(card);
             }
             
-            if (tacticCard != null && _playerIndex == 1 && _sectorIndex == 4)
+            if (tacticCard != null && ((_playerIndex == 1 && _sectorIndex == 4 && tacticCard.Owner.Side == 1) || (_playerIndex == 2 && _sectorIndex == 1 && tacticCard.Owner.Side == 2)))
             {
                 TryAddTacticCard(tacticCard);
             }

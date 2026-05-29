@@ -11,6 +11,7 @@ namespace Cards.Cyberpunk
         protected override void Awake()
         {
             Name = "Мусорщик";
+            Tech = "Cyber";
             Cost = 1;
             Damage = 1;
             MaxHealth = 4;
@@ -31,7 +32,6 @@ namespace Cards.Cyberpunk
             {
                 var enemyHero = FindObjectsByType<Hero>((FindObjectsSortMode)FindObjectsInactive.Exclude).Where(h => h.Side != Side).ToList();
                 enemyHero[0].GetDamage(5);
-                enemyHero[1].GetDamage(5);
             }
             yield return base.Die();
         }

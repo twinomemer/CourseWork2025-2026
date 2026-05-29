@@ -6,18 +6,20 @@ namespace Cards.Cyberpunk
 {
     public class Tambourmajor : Card
     {
-        private int _damageBuff = 2;
+        private int _damageBuff = 5;
 
         protected override void Awake()
         {
             Name = "Тамбурмажор";
+            Tech = "Cyber";
             Cost = 2;
             Damage = 0;
-            MaxHealth = 16;
+            MaxHealth = 15;
             IsCardWithActiveSpell = false;
             IsSpecial = true;
             Spell = "Гремит барабан";
-            CardDescription = "(акт) Увеличивает урон соседей по сектору на 2";
+            SpellType = "Untargeted";
+            CardDescription = "(акт) Увеличивает урон соседей по сектору на 5";
             CheckUpgrades();
         }
         

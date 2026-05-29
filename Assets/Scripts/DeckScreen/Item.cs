@@ -24,6 +24,7 @@ namespace DeckScreen
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             placementIsCorrect = false;
             _parentToReturnTo = transform.parent;
             _siblingIndex = transform.GetSiblingIndex();
@@ -34,11 +35,13 @@ namespace DeckScreen
     
         public void OnDrag(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             _rectTransform.anchoredPosition += eventData.delta / _mainCanvas.scaleFactor;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             if (!placementIsCorrect) transform.SetParent(_parentToReturnTo);
             transform.SetSiblingIndex(_siblingIndex);
             transform.localPosition = Vector3.zero;

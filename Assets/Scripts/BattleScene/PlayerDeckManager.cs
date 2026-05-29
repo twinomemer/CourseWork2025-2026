@@ -13,24 +13,49 @@ namespace BattleScene
         [SerializeField] private GameObject cardPrefab;
         [SerializeField] private GameObject tacticCardPrefab;
         [SerializeField] private DiscardManager playerDiscard;
+        [SerializeField] private int playerNum;
+        
         public List<GameObject> currentPlayerDeck;
 
         private void Start()
         {
-            foreach (var cardData in IntersceneData.Instance.PlayerDeck)
+            switch (playerNum)
             {
-                var cardObj = Instantiate(cardPrefab, deckGrid.transform);
-                cardObj.AddComponent(cardData.GetType());
-                cardObj.GetComponent<DraggableCard>().enabled = false;
-                currentPlayerDeck.Add(cardObj);
-            }
+                case 1:
+                    foreach (var cardData in IntersceneData.Instance.Player1Deck)
+                    {
+                        var cardObj = Instantiate(cardPrefab, deckGrid.transform);
+                        cardObj.AddComponent(cardData.GetType());
+                        cardObj.GetComponent<DraggableCard>().enabled = false;
+                        currentPlayerDeck.Add(cardObj);
+                    }
 
-            foreach (var tacticCardData in IntersceneData.Instance.PlayerTacticDeck)
-            {
-                var cardObj = Instantiate(tacticCardPrefab, deckGrid.transform);
-                cardObj.AddComponent(tacticCardData.GetType());
-                cardObj.GetComponent<DraggableCard>().enabled = false;
-                currentPlayerDeck.Add(cardObj);
+                    foreach (var tacticCardData in IntersceneData.Instance.Player1TacticDeck)
+                    {
+                        var cardObj = Instantiate(tacticCardPrefab, deckGrid.transform);
+                        cardObj.AddComponent(tacticCardData.GetType());
+                        cardObj.GetComponent<DraggableCard>().enabled = false;
+                        currentPlayerDeck.Add(cardObj);
+                    }
+                    break;
+                
+                case 2:
+                    foreach (var cardData in IntersceneData.Instance.Player2Deck)
+                    {
+                        var cardObj = Instantiate(cardPrefab, deckGrid.transform);
+                        cardObj.AddComponent(cardData.GetType());
+                        cardObj.GetComponent<DraggableCard>().enabled = false;
+                        currentPlayerDeck.Add(cardObj);
+                    }
+
+                    foreach (var tacticCardData in IntersceneData.Instance.Player2TacticDeck)
+                    {
+                        var cardObj = Instantiate(tacticCardPrefab, deckGrid.transform);
+                        cardObj.AddComponent(tacticCardData.GetType());
+                        cardObj.GetComponent<DraggableCard>().enabled = false;
+                        currentPlayerDeck.Add(cardObj);
+                    }
+                    break;
             }
         }
 

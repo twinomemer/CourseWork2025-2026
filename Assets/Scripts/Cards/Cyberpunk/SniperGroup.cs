@@ -7,9 +7,10 @@ namespace Cards.Cyberpunk
         protected override void Awake()
         {
             Name = "Снайперская группа";
+            Tech = "Cyber";
             Cost = 3;
-            Damage = 5;
-            MaxHealth = 10;
+            Damage = 10;
+            MaxHealth = 5;
             IsSpecial = true;
             Spell = "Маскировка";
             CardDescription = "(пас) Полностью избегает урона 1 раз";
@@ -27,6 +28,7 @@ namespace Cards.Cyberpunk
             if (SpellUsageCount == 0 && _isUpgraded)
             {
                 SpellUsageCount += 1;
+                OnCardStateChanged?.Invoke($"Карта {Name} избежала урона");
                 return;
             }
             base.GetDamage(damage);

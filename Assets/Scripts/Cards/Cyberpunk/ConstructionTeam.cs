@@ -1,25 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cyberpunk
 {
     public class ConstructionTeam : Card
     {
-        protected override void Awake()
-        {
-            Name = "Стройотряд";
-            Cost = 4;
-            Damage = 0;
-            MaxHealth = 20;
-            IsSpecial = true;
-            Spell = "Укрепление";
-            CardDescription = "(пас) Уменьшает получаемый картами в своём секторе урон на 5";
-            CheckUpgrades();
-        }
-        
         private int _resistBuff = 5;
         private List<Card> _buffedCards = new List<Card>();
         private bool _isUpgraded = false;
+        
+        protected override void Awake()
+        {
+            Name = "Стройотряд";
+            Tech = "Cyber";
+            Cost = 4;
+            Damage = 0;
+            MaxHealth = 25;
+            IncomingDamageReduction = 5;
+            IsSpecial = true;
+            Spell = "Укрепление";
+            CardDescription = "(пас) Уменьшает получаемый картами в своём секторе урон на 5, а для себя на 10";
+            CheckUpgrades();
+        }
         
         public override void Initialize(int targetSector)
         {
@@ -41,7 +44,7 @@ namespace Cards.Cyberpunk
 
         public override void HandleUpdate()
         {
-            if (_isUpgraded)
+            if (_isUpgraded && !isWounded)
             {
                 _buffedCards.RemoveAll(obj => obj == null);
                 if (!_buffedCards.Contains(this)) Buff(this);
@@ -61,9 +64,10 @@ namespace Cards.Cyberpunk
         {
             if (_isUpgraded)
             {
-                foreach (var card in _buffedCards)
+                foreach (var card in _buffedCards.ToList())
                 {
                     card.IncomingDamageReduction -= _resistBuff;
+                    _buffedCards.Remove(card);
                 }
             }
             yield return base.Die();

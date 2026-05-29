@@ -16,9 +16,21 @@ namespace DeckScreen.TacticDeckScreen
         private void CheckDeck()
         {
             var cards = FindObjectsOfType<TacticCard>();
-            foreach (var card in cards)
+            switch (IntersceneData.Instance.PlayerNum)
             {
-                if (!IntersceneData.Instance.PlayerTacticDeck.Contains(card)) AddTacticCardToDeck(card);
+                case 1:
+                    foreach (var card in cards)
+                    {
+                        if (!IntersceneData.Instance.Player1TacticDeck.Contains(card)) AddTacticCardToDeck(card);
+                    }
+                    break;
+                
+                case 2:
+                    foreach (var card in cards)
+                    {
+                        if (!IntersceneData.Instance.Player2TacticDeck.Contains(card)) AddTacticCardToDeck(card);
+                    }
+                    break;
             }
         }
         public void AddTacticCardToDeck(TacticCard card)

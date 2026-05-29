@@ -17,9 +17,21 @@ namespace DeckScreen
         private void CheckDeck()
         {
             var cards = FindObjectsOfType<Card>();
-            foreach (var card in cards)
+            switch (IntersceneData.Instance.PlayerNum)
             {
-                if (!IntersceneData.Instance.PlayerDeck.Contains(card)) AddCardToDeck(card);
+                case 1:
+                    foreach (var card in cards)
+                    {
+                        if (!IntersceneData.Instance.Player1Deck.Contains(card)) AddCardToDeck(card);
+                    }
+                    break;
+                
+                case 2:
+                    foreach (var card in cards)
+                    {
+                        if (!IntersceneData.Instance.Player2Deck.Contains(card)) AddCardToDeck(card);
+                    }
+                    break;
             }
         }
 

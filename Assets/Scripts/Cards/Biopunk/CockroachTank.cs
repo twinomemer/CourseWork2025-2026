@@ -8,12 +8,14 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Таракан-танк";
+            Tech = "Bio";
             Cost = 3;
             Damage = 0;
             MaxHealth = 15;
+            IncomingDamageReduction = 7;
             IsSpecial = true;
-            Spell = "Регенерация";
-            CardDescription = "(пас) Восстанавливает 7 здоровья в конце хода";
+            Spell = "Живучесть";
+            CardDescription = "(пас) Уменьшает входящий урон на 7 и восстанавливает 7 здоровья в конце хода";
             CheckUpgrades();
         }
         
@@ -24,7 +26,7 @@ namespace Cards.Biopunk
 
         public override void HandleUpdate()
         {
-            if (_isUpgraded) Heal(_healValue);
+            if (_isUpgraded && !isWounded) Heal(_healValue);
             base.HandleUpdate();
         }
     }

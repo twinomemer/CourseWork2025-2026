@@ -5,12 +5,14 @@ namespace Cards.Cyberpunk
         protected override void Awake()
         {
             Name = "Клешня";
+            Tech = "Cyber";
             Cost = 2;
             Damage = 2;
-            MaxHealth = 14;
+            MaxHealth = 10;
             IsSpecial = true;
             Spell = "Щёлк!";
-            CardDescription = "(акт) Наносит 5 урона выбранной доступной для атаки карте";
+            SpellType = "TargetEnemy";
+            CardDescription = "(акт) Наносит 10 урона выбранной доступной для атаки карте";
             CheckUpgrades();
         }
         protected override void CheckUpgrades()
@@ -21,7 +23,7 @@ namespace Cards.Cyberpunk
         public override void ActiveSpell(Card target)
         {
             if (!target.IsVulnerable) return;
-            target.GetDamage(5);
+            target.GetDamage(10);
             IsCardWithActiveSpell = false;
         }
     }

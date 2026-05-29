@@ -1,21 +1,41 @@
+using System;
+using JetBrains.Annotations;
+using Sounds;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MainMenu
 {
-    public class NewScreenButton : MonoBehaviour
+    public class NewScreenButton : SoundManager
     {
         [SerializeField] private Button button;
         [SerializeField] private Canvas targetCanvas;
-        private void Start()
+
+        private Canvas _canvas;
+
+        private void Awake()
         {
-            button.onClick.AddListener(ShowDeckCanvas);
+            _canvas = GetComponentInParent<Canvas>();
         }
 
-        private void ShowDeckCanvas()
+        protected override void Start()
         {
-            GetComponentInParent<Canvas>().gameObject.SetActive(false);
+            base.Start();
+            button.onClick.AddListener(ShowCanvas);
+        }
+
+        private void ShowCanvas()
+        {
+            PlaySound(0, destroyed:true);
+            IntersceneData.Instance.PlayerNum = gameObject.name switch
+            {
+                "Player1HeroButton" => 1,
+                "Player2HeroButton" => 2,
+                _ => IntersceneData.Instance.PlayerNum
+            };
+            _canvas.gameObject.SetActive(false);
             targetCanvas.gameObject.SetActive(true);
+            targetCanvas.sortingOrder = 1;
         }
     }
 }

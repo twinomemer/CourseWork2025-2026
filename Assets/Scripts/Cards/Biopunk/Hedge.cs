@@ -5,15 +5,25 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "Живая изгородь";
+            Tech = "Bio";
             Cost = 2;
             Damage = 0;
             MaxHealth = 10;
+            IsSpecial = true;
+            Spell = "Живучесть";
+            CardDescription = "(пас) Полностью избегает урона 1 раз";
             CheckUpgrades();
         }
-        
-        protected override void CheckUpgrades()
+
+        public override void GetDamage(int damage)
         {
-            if (IntersceneData.Instance.PlayerUpgrades.Contains(170)) MaxHealth += 10;
+            if (SpellUsageCount == 0)
+            {
+                SpellUsageCount += 1;
+                OnCardStateChanged?.Invoke($"Карта {Name} избежала урона");
+                return;
+            }
+            base.GetDamage(damage);
         }
     }
 }

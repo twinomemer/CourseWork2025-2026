@@ -5,6 +5,7 @@ namespace Cards.Biopunk
         protected override void Awake()
         {
             Name = "ГМО человек";
+            Tech = "Bio";
             Cost = 2;
             Damage = 5;
             MaxHealth = 5;

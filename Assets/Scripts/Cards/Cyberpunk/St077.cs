@@ -5,9 +5,10 @@ namespace Cards.Cyberpunk
         protected override void Awake()
         {
             Name = "СТ-077";
+            Tech = "Cyber";
             Cost = 4;
-            Damage = 5;
-            MaxHealth = 20;
+            Damage = 10;
+            MaxHealth = 15;
             CheckUpgrades();
         }
         

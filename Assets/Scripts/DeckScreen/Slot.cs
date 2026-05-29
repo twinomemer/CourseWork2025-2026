@@ -10,6 +10,7 @@ namespace DeckScreen
         
         public void OnDrop(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right) return;
             _item = eventData.pointerDrag.GetComponent<Item>();
             
             if (!eventData.pointerDrag.CompareTag("Item")) return;
